@@ -13,8 +13,8 @@ $vkApi = new VkApiGateway($config);
 //$vkApi->vkApi_getConversationMembers(2000000023);
 
 
-define('CALLBACK_API_CONFIRMATION_TOKEN', $config['user_app_id']); // Строка, которую должен вернуть сервер
-define('VK_API_ACCESS_TOKEN', $config['group_token']); // Ключ доступа сообщества
+define('CALLBACK_API_CONFIRMATION_TOKEN', getenv('CONFIRMATION_TOKEN')); // Строка, которую должен вернуть сервер
+define('VK_API_ACCESS_TOKEN', getenv('ACCESS_TOKEN')); // Ключ доступа сообщества
 
 define('CALLBACK_API_EVENT_CONFIRMATION', 'confirmation'); // Тип события о подтверждении сервера
 define('CALLBACK_API_EVENT_MESSAGE_NEW', 'message_new'); // Тип события о новом сообщении
