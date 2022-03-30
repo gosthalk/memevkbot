@@ -4,7 +4,7 @@ use App\VkApiGateway;
 
 require __DIR__ . '/vendor/autoload.php';
 
-$vk = new VkApiGateway('ТокенСДоступомКСообщениямСообщества', '5.131');
+$vk = new VkApiGateway(getenv('ACCESS_TOKEN'), '5.131');
 $data = json_decode(file_get_contents('php://input'));
 
 if ($data->type == 'confirmation') {

@@ -6,7 +6,7 @@ namespace App;
 class VkApiGateway
 {
     function __construct($token, $version) {
-        $this->token = getenv('ACCESS_TOKEN');
+        $this->token = $token;
         $this->version = $version;
         $this->endpoint = "https://api.vk.com/method";
         $this->random_id = random_int(1, 9999999);
