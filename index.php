@@ -23,5 +23,9 @@ if ($data->type == 'message_new') {
     if($message === 'спиздани'){
         $vk->sendMessage($peer_id, "Я ебучий автобот");
     }
+    if($message === 'стикер'){
+        $stickerId = random_int(70913, 70960);
+        $vk->sendMessageWithSticker($peer_id, $stickerId);
+    }
 }
 

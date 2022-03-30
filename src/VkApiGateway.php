@@ -16,6 +16,10 @@ class VkApiGateway
         $this->Request("messages.send", array("peer_id" => $peer_id, "message" => $message, "attachment" => $attachment, "random_id" => $this->random_id));
     }
 
+    public function SendMessageWithSticker($peer_id, $stickerId) {
+        $this->Request("messages.send", array("peer_id" => $peer_id, "sticker_id" => $stickerId, "random_id" => $this->random_id));
+    }
+
     private function Request($method, $params=array()) {
         $url = $this->endpoint."/$method?";
         $ch = curl_init();
