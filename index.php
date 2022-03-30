@@ -31,7 +31,7 @@ switch ($event['type']) {
         $message = $event['object']['message'];
         $peer_id = $message['peer_id'];
         if($message['text'] === 'спиздани'){
-            send_message($peer_id, '@'. $message['from_id'] . ' (Лошок) полный');
+            send_message($peer_id, '@id'. $message['from_id'] . ' (Лошок) полный');
             echo('ok');
         }
         echo('ok');
