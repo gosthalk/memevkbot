@@ -28,8 +28,8 @@ switch ($event['type']) {
         break;
     // Получение нового сообщения
     case CALLBACK_API_EVENT_MESSAGE_NEW:
-        $message = $event['object'];
-        $peer_id = $message['peer_id'] ?: $message['user_id'];
+        $message = $event['object']['message'];
+        $peer_id = $message['peer_id'];
         send_message($peer_id, "Нихуя не понял");
         echo('ok');
         break;
