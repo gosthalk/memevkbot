@@ -32,9 +32,8 @@ switch ($event['type']) {
         $peer_id = $message['peer_id'];
         if($message['text'] === 'спиздани'){
             send_message($peer_id, '@id'. $message['from_id'] . ' (Лошок) полный');
-            echo('ok');
+            sendOK();
         }
-        echo('ok');
         break;
     default:
         echo('Unsupported event');
@@ -63,5 +62,33 @@ function api($method, $params)
     $data = curl_exec($ch);
     var_dump($data);
     curl_close($ch);
+}
+
+function sendOK(){
+    echo 'ok';
+    $response_length = ob_get_length();
+    // check if fastcgi_finish_request is callable
+    if (is_callable('fastcgi_finish_request')) {
+        /*
+         * This works in Nginx but the next approach not
+         */
+        session_write_close();
+        fastcgi_finish_request();
+
+        return;
+    }
+
+    ignore_user_abort(true);
+
+    ob_start();
+    $serverProtocole = filter_input(INPUT_SERVER, 'SERVER_PROTOCOL', FILTER_SANITIZE_STRING);
+    header($serverProtocole.' 200 OK');
+    header('Content-Encoding: none');
+    header('Content-Length: '. $response_length);
+    header('Connection: close');
+
+    ob_end_flush();
+    ob_flush();
+    flush();
 }
 
