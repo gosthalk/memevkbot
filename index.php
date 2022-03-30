@@ -23,6 +23,8 @@ define('VK_API_VERSION', '5.131'); // Используемая версия API
 
 $event = json_decode(file_get_contents('php://input'), true);
 
+var_dump($event);
+
 switch ($event['type']) {
     // Подтверждение сервера
     case CALLBACK_API_EVENT_CONFIRMATION:
