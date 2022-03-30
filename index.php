@@ -11,8 +11,11 @@ require __DIR__ . '/vendor/autoload.php';
 //$vkApi->vkApi_getConversationMembers(2000000023);
 
 
-define('CALLBACK_API_CONFIRMATION_TOKEN', getenv('CONFIRMATION_TOKEN')); // Строка, которую должен вернуть сервер
-define('VK_API_ACCESS_TOKEN', getenv('ACCESS_TOKEN')); // Ключ доступа сообщества
+define('CALLBACK_API_CONFIRMATION_TOKEN', (string) getenv('CONFIRMATION_TOKEN')); // Строка, которую должен вернуть сервер
+define('VK_API_ACCESS_TOKEN', (string) getenv('ACCESS_TOKEN')); // Ключ доступа сообщества
+
+var_dump(getenv('CONFIRMATION_TOKEN'));
+var_dump(getenv('ACCESS_TOKEN'));
 
 define('CALLBACK_API_EVENT_CONFIRMATION', 'confirmation'); // Тип события о подтверждении сервера
 define('CALLBACK_API_EVENT_MESSAGE_NEW', 'message_new'); // Тип события о новом сообщении
@@ -49,6 +52,7 @@ function send_message($peer_id, $message)
 function api($method, $params)
 {
     $params['access_token'] = VK_API_ACCESS_TOKEN;
+    var_dump(VK_API_ACCESS_TOKEN);
     $params['v'] = VK_API_VERSION;
     $query = http_build_query($params);
     $url = VK_API_ENDPOINT . $method . '?' . $query;
