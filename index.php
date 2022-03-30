@@ -52,25 +52,16 @@ function send_message($peer_id, $message)
 
 function api($method, $params)
 {
-    $params['access_token'] = VK_API_ACCESS_TOKEN;
-    $params['v'] = VK_API_VERSION;
-    $query = http_build_query($params);
-    $url = VK_API_ENDPOINT . $method . '?' . $query;
-    $curl = curl_init($url);
-    curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-    $json = curl_exec($curl);
-    $error = curl_error($curl);
-    if ($error) {
-        error_log($error);
-        throw new Exception("Failed {$method} request");
-    }
-    curl_close($curl);
-    $response = json_decode($json, true);
-    var_dump($response);
-    if (!$response || !isset($response['response'])) {
-        error_log($json);
-        throw new Exception("Invalid response for {$method} request");
-    }
-    return $response['response'];
+    $url = VK_API_ENDPOINT."/$method?";
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_POST, 1);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($params)."&access_token=".VK_API_ACCESS_TOKEN."&v=".VK_API_VERSION);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, array('Cache-Control: no-cache'));
+    curl_setopt($ch, CURLOPT_FRESH_CONNECT, 1);
+    $data = curl_exec($ch);
+    var_dump($data);
+    curl_close($ch);
 }
 
