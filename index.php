@@ -30,7 +30,10 @@ switch ($event['type']) {
     case CALLBACK_API_EVENT_MESSAGE_NEW:
         $message = $event['object']['message'];
         $peer_id = $message['peer_id'];
-        send_message($peer_id, "Нихуя не понял");
+        if($message['text'] === 'спиздани'){
+            send_message($peer_id, '@'. $message['from_id'] . ' (Лошок) полный');
+            echo('ok');
+        }
         echo('ok');
         break;
     default:
