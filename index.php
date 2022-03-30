@@ -4,13 +4,6 @@ use App\VkApiGateway;
 
 require __DIR__ . '/vendor/autoload.php';
 
-//$vkApi = new VkApiGateway($config);
-
-//$vkApi->vkApi_messagesSend(2000000023, 'Ну привет епта');
-//$vkApi->vkApi_getInviteLink(2000000023);
-//$vkApi->vkApi_getConversationMembers(2000000023);
-
-
 define('CALLBACK_API_CONFIRMATION_TOKEN', (string) getenv('CONFIRMATION_TOKEN')); // Строка, которую должен вернуть сервер
 define('VK_API_ACCESS_TOKEN', (string) getenv('ACCESS_TOKEN')); // Ключ доступа сообщества
 
@@ -20,6 +13,8 @@ define('VK_API_ENDPOINT', 'https://api.vk.com/method/'); // Адрес обра�
 define('VK_API_VERSION', '5.131'); // Используемая версия API
 
 $event = json_decode(file_get_contents('php://input'), true);
+
+sendOK();
 
 switch ($event['type']) {
     // Подтверждение сервера
@@ -32,7 +27,7 @@ switch ($event['type']) {
         $peer_id = $message['peer_id'];
         if($message['text'] === 'спиздани'){
             send_message($peer_id, '@id'. $message['from_id'] . ' (Лошок) полный');
-            sendOK();
+            break;
         }
         break;
     default:
@@ -45,7 +40,7 @@ function send_message($peer_id, $message)
     api('messages.send', array(
         'peer_id' => $peer_id,
         'message' => $message,
-        'random_id' => random_int(1, 9999999)
+        'random_id' => random_int(1, 999)
     ));
 }
 
