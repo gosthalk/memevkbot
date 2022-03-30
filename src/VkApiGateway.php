@@ -5,46 +5,50 @@ namespace App;
 
 class VkApiGateway
 {
-    private string $VK_API_VERSION = '5.131';
-    private string $VK_API_ENDPOINT = "https://api.vk.com/method/";
-
-    private array $config;
-
-    public function __construct($config)
-    {
-        $this->config = $config;
+    function __construct($token, $version) {
+        $this->token = getenv('ACCESS_TOKEN');
+        $this->version = $version;
+        $this->endpoint = "https://api.vk.com/method";
+        $this->random_id = random_int(1, 9999999);
     }
 
-    public function _vkApi_call($method, $params = array()) {
-        $params['access_token'] = $this->config['group_token'];
-        $params['v'] = $this->VK_API_VERSION;
-        $url = $this->VK_API_ENDPOINT.$method.'?'.http_build_query($params);
-        $curl = curl_init($url);
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-        $json = curl_exec($curl);
-        curl_close($curl);
-        $response = json_decode($json, true);
-        var_dump($response);
-        return $response['response'];
+    public function SendMessage($peer_id, $message, $attachment = null) {
+        $this->Request("messages.send", array("peer_id" => $peer_id, "message" => $message, "attachment" => $attachment, "random_id" => $this->random_id));
     }
 
-    public function vkApi_messagesSend($peer_id, $message, $attachments = array()) {
-        return $this->_vkApi_call('messages.send', array(
-            'peer_id' => $peer_id,
-            'message' => $message,
-            'attachment' => implode(',', $attachments)
-        ));
+    private function Request($method, $params=array()) {
+        $url = $this->endpoint."/$method?";
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($params)."&access_token=".$this->token."&v=".$this->version);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Cache-Control: no-cache'));
+        curl_setopt($ch, CURLOPT_FRESH_CONNECT, 1);
+        $data = curl_exec($ch);
+        curl_close($ch);
     }
 
-    public function vkApi_getInviteLink($peer_id) {
-        return $this->_vkApi_call('messages.getInviteLink', array(
-            'peer_id' => $peer_id,
-        ));
-    }
+    public function sendOK(){
+        echo 'ok';
+        $response_length = ob_get_length();
+        if (is_callable('fastcgi_finish_request')) {
+            session_write_close();
+            fastcgi_finish_request();
+            return;
+        }
 
-    public function vkApi_getConversationMembers($peer_id) {
-        return $this->_vkApi_call('messages.getConversationMembers', array(
-            'peer_id' => $peer_id,
-        ));
+        ignore_user_abort(true);
+
+        ob_start();
+        $serverProtocole = filter_input(INPUT_SERVER, 'SERVER_PROTOCOL', FILTER_SANITIZE_STRING);
+        header($serverProtocole.' 200 OK');
+        header('Content-Encoding: none');
+        header('Content-Length: '. $response_length);
+        header('Connection: close');
+
+        ob_end_flush();
+        ob_flush();
+        flush();
     }
 }
