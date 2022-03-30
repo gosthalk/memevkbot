@@ -4,9 +4,7 @@ use App\VkApiGateway;
 
 require __DIR__ . '/vendor/autoload.php';
 
-$config = require('config/config.php');
-
-$vkApi = new VkApiGateway($config);
+//$vkApi = new VkApiGateway($config);
 
 //$vkApi->vkApi_messagesSend(2000000023, 'Ну привет епта');
 //$vkApi->vkApi_getInviteLink(2000000023);
