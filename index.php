@@ -43,6 +43,7 @@ function send_message($peer_id, $message)
     api('messages.send', array(
         'peer_id' => $peer_id,
         'message' => $message,
+        'random_id' => random_int(1, 9999999)
     ));
 }
 
