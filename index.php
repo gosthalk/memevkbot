@@ -14,9 +14,6 @@ require __DIR__ . '/vendor/autoload.php';
 define('CALLBACK_API_CONFIRMATION_TOKEN', (string) getenv('CONFIRMATION_TOKEN')); // Строка, которую должен вернуть сервер
 define('VK_API_ACCESS_TOKEN', (string) getenv('ACCESS_TOKEN')); // Ключ доступа сообщества
 
-var_dump(getenv('CONFIRMATION_TOKEN'));
-var_dump(getenv('ACCESS_TOKEN'));
-
 define('CALLBACK_API_EVENT_CONFIRMATION', 'confirmation'); // Тип события о подтверждении сервера
 define('CALLBACK_API_EVENT_MESSAGE_NEW', 'message_new'); // Тип события о новом сообщении
 define('VK_API_ENDPOINT', 'https://api.vk.com/method/'); // Адрес обращения к API
@@ -52,7 +49,6 @@ function send_message($peer_id, $message)
 function api($method, $params)
 {
     $params['access_token'] = VK_API_ACCESS_TOKEN;
-    var_dump(VK_API_ACCESS_TOKEN);
     $params['v'] = VK_API_VERSION;
     $query = http_build_query($params);
     $url = VK_API_ENDPOINT . $method . '?' . $query;
@@ -66,6 +62,7 @@ function api($method, $params)
     }
     curl_close($curl);
     $response = json_decode($json, true);
+    var_dump($response);
     if (!$response || !isset($response['response'])) {
         error_log($json);
         throw new Exception("Invalid response for {$method} request");
