@@ -33,7 +33,8 @@ class Utility
     {
         $str = 'Новости : ' . PHP_EOL;
         foreach ($news['items'] as $n) {
-            $str .= date('H:i d-m-Y', (int) $n['timestamp']) . ' - ' . $n['title'] . PHP_EOL;
+            $str .= date('H:i d-m-Y', (int) $n['timestamp']) . ' - ' . str_replace('&quot;','\"',$n['title']) . PHP_EOL;
+            $str .= '---------------------------------------------------------------------------' . PHP_EOL;
         }
 
         return $str;
