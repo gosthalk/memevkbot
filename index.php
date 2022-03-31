@@ -5,8 +5,6 @@ use App\Utility;
 
 require __DIR__ . '/vendor/autoload.php';
 
-$conf = require("config/config.php");
-
 $vk = new VkApiGateway(getenv('USER_TOKEN'), getenv('ACCESS_TOKEN'), '5.131');
 $util = new Utility();
 $data = json_decode(file_get_contents('php://input'));
