@@ -5,6 +5,9 @@ use App\Utility;
 
 require __DIR__ . '/vendor/autoload.php';
 
+//$conf = require('config/config.php');
+//$vk = new VkApiGateway($conf['user_token'], $conf['group_token'], '5.131');
+
 $vk = new VkApiGateway(getenv('USER_TOKEN'), getenv('ACCESS_TOKEN'), '5.131');
 $util = new Utility();
 $data = json_decode(file_get_contents('php://input'));
@@ -40,15 +43,14 @@ if ($data->type == 'message_new') {
     }
     if(preg_match('/(бот_новости_)[а-яё]{2,}/', mb_strtolower($message))) {
         $news_word = explode('_', mb_strtolower($message))[2];
-        $news = json_decode($util->curlGetRequest('https://mediametrics.ru/satellites/api/search/',
+        $news = json_decode($util->curlGetRequest('https://mediametrics.ru/satellites/api/search/?',
         [
             'ac' => 'search',
             'q' => $news_word,
             'p' => 0,
             'c' => 'ru',
-            'callback' => 'JSONP'
+            'callback' => 'JSON'
         ]), true);
-
         $newsString = $util->transformNews($news);
         $vk->sendMessage($peer_id, $newsString);
     }

@@ -17,21 +17,23 @@ class Utility
 
     public function curlGetRequest($url, $params = [])
     {
-        $ch = curl_init($url . http_build_query($params));
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-        curl_setopt($ch, CURLOPT_HEADER, false);
-        $data = curl_exec($ch);
+        $link = $url . http_build_query($params);
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $link);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, ['Cache-Control: no-cache']);
+        curl_setopt($ch, CURLOPT_FRESH_CONNECT, 1);
+        $response = curl_exec($ch);
         curl_close($ch);
 
-        return $data;
+        return $response;
     }
 
     public function transformNews($news)
     {
         $str = 'Новости : ' . PHP_EOL;
-        foreach ($news as $n) {
-            $str .= date('H:i d-m-Y', $n['timestamp']) . ' - ' . $n['title'] . PHP_EOL;
+        foreach ($news['items'] as $n) {
+            $str .= date('H:i d-m-Y', (int) $n['timestamp']) . ' - ' . $n['title'] . PHP_EOL;
         }
 
         return $str;
