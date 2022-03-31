@@ -1,9 +1,9 @@
 {
     "require": {
         "vkcom/vk-php-sdk": "^5.101",
+        "ext-mbstring": "*",
         "ext-curl": "*",
-        "ext-json": "*",
-        "ext-mbstring": "*"
+        "ext-json": "*"
     },
     "autoload": {
         "classmap": ["src/"]
