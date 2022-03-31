@@ -4,6 +4,9 @@ use App\VkApiGateway;
 
 require __DIR__ . '/vendor/autoload.php';
 
+phpinfo();
+var_dump(phpinfo());
+
 $vk = new VkApiGateway(getenv('ACCESS_TOKEN'), '5.131');
 $data = json_decode(file_get_contents('php://input'));
 
@@ -30,6 +33,4 @@ if ($data->type == 'message_new') {
         $vk->sendMessageWithSticker($peer_id, $stickerId);
     }
 }
-
-echo phpinfo();
 
