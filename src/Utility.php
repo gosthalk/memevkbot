@@ -32,8 +32,10 @@ class Utility
     public function transformNews($news)
     {
         $str = 'Новости : ' . PHP_EOL;
-        foreach ($news['items'] as $n) {
-            $str .= date('H:i d-m-Y', (int) $n['timestamp']) . ' - ' . str_replace('&quot;','\"',$n['title']) . PHP_EOL;
+        for($i=0;$i<10;$i++) {
+            $str .= date('H:i d-m-Y', (int) $news['items'][$i]['timestamp']) . PHP_EOL;
+            $str .= 'Новость - ' . str_replace('&quot;','"',$news['items'][$i]['title']) . PHP_EOL;
+            $str .= 'Ссылка - ' . $news['items'][$i]['url'] . PHP_EOL;
             $str .= '-------------------------------------------------------------------------------------' . PHP_EOL;
         }
         return $str;
