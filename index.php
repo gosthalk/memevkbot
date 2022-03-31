@@ -31,3 +31,5 @@ if ($data->type == 'message_new') {
     }
 }
 
+echo phpinfo();
+

@@ -5,12 +5,6 @@
         "ext-json": "*",
         "ext-mbstring": "*"
     },
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "https://github.com/Narixius/FaceApp-PHP.git"
-        }
-    ],
     "autoload": {
         "classmap": ["src/"]
     }
