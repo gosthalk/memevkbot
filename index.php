@@ -31,7 +31,7 @@ if ($data->type == 'message_new') {
         $stickerId = random_int($stickersArray[$stickerPackId][0],$stickersArray[$stickerPackId][1]);
         $vk->sendMessageWithSticker($peer_id, $stickerId);
     }
-    if($message === 'мем'){
+    if(mb_strtolower($message) === 'мем'){
         $owner_id = '-150550417';
         $posts = json_decode($vk->getGroupWallPosts($owner_id, 30), true);
         $ids = $util->getPostsIds($posts);
