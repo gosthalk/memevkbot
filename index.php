@@ -24,11 +24,13 @@ if ($data->type == 'message_new') {
 }
 
 if ($data->type == 'message_new') {
-    if($message === 'спиздани'){
+    if(mb_strtolower($message) === 'спиздани'){
         $vk->sendMessage($peer_id, "Я ебучий автобот");
     }
-    if($message === 'стикер'){
-        $stickerId = random_int(70913, 70960);
+    if(mb_strtolower($message) === 'стикер'){
+        $stickersArray = require_once('src/stickers.php');
+        $stickerPackId = random_int(1,6);
+        $stickerId = random_int($stickersArray[$stickerPackId][0],$stickersArray[$stickerPackId][1]);
         $vk->sendMessageWithSticker($peer_id, $stickerId);
     }
     if($message === 'мем'){
