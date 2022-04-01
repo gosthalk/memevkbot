@@ -35,8 +35,9 @@ if ($data->type == 'message_new') {
         $vk->sendMessageWithSticker($peer_id, $stickerId);
     }
     if(mb_strtolower($message) === 'мем') {
-        $owner_id = '-150550417';
-        $posts = json_decode($vk->getGroupWallPosts($owner_id, 30), true);
+        $owner_idArray = require_once ('src/meme_groups.php');
+        $owner_id = random_int(1,6);
+        $posts = json_decode($vk->getGroupWallPosts($owner_idArray[$owner_id], 20), true);
         $ids = $util->getPostsIds($posts);
         $random_post_int = random_int(0, count($ids));
         $vk->sendMessage($peer_id, 'Держи', 'wall' . $owner_id . '_' . $ids[$random_post_int]);
