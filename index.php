@@ -16,7 +16,7 @@ if ($data->type == 'confirmation') {
     exit(getenv('CONFIRMATION_TOKEN'));
 }
 
-$vk->SendOK();
+//$vk->SendOK();
 
 if ($data->type == 'message_new') {
     $from_id = $data->object->message->from_id;
@@ -35,8 +35,10 @@ if ($data->type == 'message_new') {
         $vk->sendMessageWithSticker($peer_id, $stickerId);
     }
     if(mb_strtolower($message) === 'мем') {
-        $owner_idArray = require_once ('src/meme_groups.php');
+        $owner_idArray = require_once('src/meme_groups.php');
+        var_dump($owner_idArray);
         $owner_id = random_int(1,6);
+        var_dump($owner_idArray[$owner_id]);
         $posts = json_decode($vk->getGroupWallPosts($owner_idArray[$owner_id], 20), true);
         $ids = $util->getPostsIds($posts);
         $random_post_int = random_int(0, count($ids));
