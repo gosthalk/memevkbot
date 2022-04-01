@@ -5,6 +5,8 @@ use App\Utility;
 
 require __DIR__ . '/vendor/autoload.php';
 
+date_default_timezone_set('Europe/London');
+
 //$conf = require('config/config.php');
 //$vk = new VkApiGateway($conf['user_token'], $conf['group_token'], '5.131');
 
