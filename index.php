@@ -44,6 +44,9 @@ if ($data->type == 'message_new') {
         $random_post_int = random_int(0, count($ids));
         $vk->sendMessage($peer_id, 'Держи', 'wall' . $owner_idArray[$owner_id] . '_' . $ids[$random_post_int]);
     }
+    if(str_contains(mb_strtolower($message),'айфон')) {
+        $vk->sendMessage($peer_id, 'айфон говно');
+    }
     if(preg_match('/(бот_новости_)[а-яё]{2,}/', mb_strtolower($message))) {
         $news_word = explode('_', mb_strtolower($message))[2];
         $news = json_decode($util->curlGetRequest('https://mediametrics.ru/satellites/api/search/?',
