@@ -8,7 +8,7 @@ require __DIR__ . '/vendor/autoload.php';
 date_default_timezone_set('Europe/Moscow');
 
 //$conf = require('config/config.php');
-//$vk = new VkApiGateway($conf['user_token'], $conf['group_token'], '5.131');
+//$vk = new VkApiGateway($conf['user_token'], $conf['group_token'], $conf['weather_token'], '5.131');
 
 $vk = new VkApiGateway(getenv('USER_TOKEN'), getenv('ACCESS_TOKEN'), '5.131');
 $util = new Utility();
@@ -62,6 +62,25 @@ if ($data->type == 'message_new') {
         ]), true);
         $newsString = $util->transformNews($news);
         $vk->sendMessage($peer_id, $newsString);
+    }
+    if(preg_match('/(бот_погода_)[а-яё]{2,}/', mb_strtolower($message))) {
+        $city_name = explode('_', mb_strtolower($message))[2];
+        $city_coordinates = json_decode($util->curlGetRequest('http://api.openweathermap.org/geo/1.0/direct?',
+        [
+            'q' => $city_name,
+            'limit' => 1,
+            'appid' => getenv('WEATHER_TOKEN')
+        ]), true);
+        $daily_temp = json_decode($util->curlGetRequest('https://api.openweathermap.org/data/2.5/onecall?', [
+            'lat' => $city_coordinates[0]['lat'],
+            'lon' => $city_coordinates[0]['lon'],
+            'exclude' => 'current,minutely,hourly,alert',
+            'units' => 'metric',
+            'lang' => 'ru',
+            'appid' => getenv('WEATHER_TOKEN')
+        ]), true);
+        $weather = $util->transformWeather($daily_temp);
+        $vk->sendMessage($peer_id, $weather);
     }
 }
 

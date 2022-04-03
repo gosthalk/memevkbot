@@ -40,4 +40,21 @@ class Utility
         }
         return $str;
     }
+
+    public function transformWeather($weather)
+    {
+        $str = 'Погода : ' . PHP_EOL;
+
+        for ($i=0;$i<count($weather['daily']);$i++) {
+            $str .= "Дата " . date('H:i d-m-Y', (int) $weather['daily'][$i]['dt']) . PHP_EOL;
+            $str .= "Днем - " . $weather['daily'][$i]['temp']['day'] . PHP_EOL;
+            $str .= "Ночью - " . $weather['daily'][$i]['temp']['night'] . PHP_EOL;
+            $str .= "Влажность - " . $weather['daily'][$i]['humidity'] . PHP_EOL;
+            $str .= "Скорость ветра - " . $weather['daily'][$i]['wind_speed'] .PHP_EOL;
+            $str .= "Текстовая погода - " . $weather['daily'][$i]['weather'][0]['description'] . ' (пиздеж)' . PHP_EOL;
+            $str .= '-------------------------------------------------------------------------------------' . PHP_EOL;
+        }
+
+        return $str;
+    }
 }
