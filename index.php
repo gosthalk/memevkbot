@@ -47,6 +47,9 @@ if ($data->type == 'message_new') {
     if(str_contains(mb_strtolower($message),'айфон')) {
         $vk->sendMessage($peer_id, 'айфон говно');
     }
+    if(str_contains(mb_strtolower($message),'андроид')) {
+        $vk->sendMessage($peer_id, 'андроид топ');
+    }
     if(preg_match('/(бот_новости_)[а-яё]{2,}/', mb_strtolower($message))) {
         $news_word = explode('_', mb_strtolower($message))[2];
         $news = json_decode($util->curlGetRequest('https://mediametrics.ru/satellites/api/search/?',
