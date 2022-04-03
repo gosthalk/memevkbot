@@ -47,10 +47,10 @@ class Utility
 
         for ($i=0;$i<count($weather['daily']);$i++) {
             $str .= "Дата " . date('d-m-Y', (int) $weather['daily'][$i]['dt']) . PHP_EOL;
-            $str .= "Днем -> " . (int) $weather['daily'][$i]['temp']['day'] . PHP_EOL;
-            $str .= "Ночью -> " . (int) $weather['daily'][$i]['temp']['night'] . PHP_EOL;
+            $str .= "Днем -> " . (int) $weather['daily'][$i]['temp']['day'] . '°C' . PHP_EOL;
+            $str .= "Ночью -> " . (int) $weather['daily'][$i]['temp']['night'] . '°C' . PHP_EOL;
             $str .= "Влажность -> " . $weather['daily'][$i]['humidity'] . '%' . PHP_EOL;
-            $str .= "Скорость ветра -> " . round($weather['daily'][$i]['wind_speed'], 1) .PHP_EOL;
+            $str .= "Скорость ветра -> " . round($weather['daily'][$i]['wind_speed'], 1) . ' м/с' .PHP_EOL;
             $str .= "Текстовая погода -> " . $weather['daily'][$i]['weather'][0]['description'] . ' (пиздеж)' . PHP_EOL;
             $str .= '-------------------------------------------------------------------------------------' . PHP_EOL;
         }
