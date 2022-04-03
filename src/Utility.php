@@ -34,8 +34,8 @@ class Utility
         $str = 'Новости : ' . PHP_EOL;
         for($i=0;$i<10;$i++) {
             $str .= date('H:i d-m-Y', (int) $news['items'][$i]['timestamp']) . PHP_EOL;
-            $str .= 'Новость - ' . str_replace('&quot;','"',$news['items'][$i]['title']) . PHP_EOL;
-            $str .= 'Ссылка - ' . $news['items'][$i]['url'] . PHP_EOL;
+            $str .= 'Новость -> ' . str_replace('&quot;','"',$news['items'][$i]['title']) . PHP_EOL;
+            $str .= 'Ссылка -> ' . $news['items'][$i]['url'] . PHP_EOL;
             $str .= '-------------------------------------------------------------------------------------' . PHP_EOL;
         }
         return $str;
@@ -47,11 +47,11 @@ class Utility
 
         for ($i=0;$i<count($weather['daily']);$i++) {
             $str .= "Дата " . date('d-m-Y', (int) $weather['daily'][$i]['dt']) . PHP_EOL;
-            $str .= "Днем - " . (int) $weather['daily'][$i]['temp']['day'] . PHP_EOL;
-            $str .= "Ночью - " . (int) $weather['daily'][$i]['temp']['night'] . PHP_EOL;
-            $str .= "Влажность - " . $weather['daily'][$i]['humidity'] . PHP_EOL;
-            $str .= "Скорость ветра - " . round($weather['daily'][$i]['wind_speed'], 1) .PHP_EOL;
-            $str .= "Текстовая погода - " . $weather['daily'][$i]['weather'][0]['description'] . ' (пиздеж)' . PHP_EOL;
+            $str .= "Днем -> " . (int) $weather['daily'][$i]['temp']['day'] . PHP_EOL;
+            $str .= "Ночью -> " . (int) $weather['daily'][$i]['temp']['night'] . PHP_EOL;
+            $str .= "Влажность -> " . $weather['daily'][$i]['humidity'] . PHP_EOL;
+            $str .= "Скорость ветра -> " . round($weather['daily'][$i]['wind_speed'], 1) .PHP_EOL;
+            $str .= "Текстовая погода -> " . $weather['daily'][$i]['weather'][0]['description'] . ' (пиздеж)' . PHP_EOL;
             $str .= '-------------------------------------------------------------------------------------' . PHP_EOL;
         }
 
