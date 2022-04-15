@@ -5,7 +5,7 @@ namespace App;
 
 class Utility
 {
-    public function getPostsIds($posts)
+    public function getPostsIds($posts): array
     {
         $ids = [];
         for($i=0;$i<count($posts['response']['items']);$i++){
@@ -15,7 +15,7 @@ class Utility
         return $ids;
     }
 
-    public function curlGetRequest($url, $params = [])
+    public function curlGetRequest($url, $params = []): bool|string
     {
         $link = $url . http_build_query($params);
         $ch = curl_init();
@@ -29,7 +29,7 @@ class Utility
         return $response;
     }
 
-    public function transformNews($news)
+    public function transformNews($news): string
     {
         $str = 'Новости : ' . PHP_EOL;
         for($i=0;$i<10;$i++) {
@@ -41,7 +41,7 @@ class Utility
         return $str;
     }
 
-    public function transformWeather($weather)
+    public function transformWeather($weather): string
     {
         $str = 'Погода : ' . PHP_EOL;
 
@@ -56,5 +56,13 @@ class Utility
         }
 
         return $str;
+    }
+
+    public function strContains(string $str, array $arr): bool
+    {
+        foreach($arr as $a) {
+            if (stripos($str,$a) !== false) return true;
+        }
+        return false;
     }
 }
