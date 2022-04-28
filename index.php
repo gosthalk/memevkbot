@@ -28,7 +28,8 @@ if ($data->type == 'message_new') {
 
 if ($data->type == 'message_new') {
     if(mb_strtolower($message) === 'спиздани') {
-        $vk->sendMessage($peer_id, "Я ебучий автобот");
+        $response = json_decode($util->curlGetRequest('https://evilinsult.com/generate_insult.php?lang=ru&type=json'), true);
+        $vk->sendMessage($peer_id, iconv(mb_detect_encoding($response['insult'], mb_detect_order(), true), "UTF-8", $response['insult']));
     }
     if(mb_strtolower($message) === 'стикер') {
         $stickersArray = require_once('src/stickers.php');
