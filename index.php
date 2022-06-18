@@ -30,12 +30,14 @@ if ($data->type == 'message_new') {
     if(mb_strtolower($message) === 'спиздани') {
         $response = json_decode($util->curlGetRequest('https://evilinsult.com/generate_insult.php?lang=ru&type=json'), true);
         $vk->sendMessage($peer_id, iconv(mb_detect_encoding($response['insult'], mb_detect_order(), true), "UTF-8", $response['insult']));
+        return;
     }
     if(mb_strtolower($message) === 'стикер') {
         $stickersArray = require_once('src/stickers.php');
         $stickerPackId = random_int(1,6);
         $stickerId = random_int($stickersArray[$stickerPackId][0],$stickersArray[$stickerPackId][1]);
         $vk->sendMessageWithSticker($peer_id, $stickerId);
+        return;
     }
     if(mb_strtolower($message) === 'мем') {
         $owner_idArray = require_once('src/meme_groups.php');
@@ -44,12 +46,15 @@ if ($data->type == 'message_new') {
         $ids = $util->getPostsIds($posts);
         $random_post_int = random_int(0, count($ids));
         $vk->sendMessage($peer_id, 'Держи', 'wall' . $owner_idArray[$owner_id] . '_' . $ids[$random_post_int]);
+        return;
     }
     if($util->strContains(mb_strtolower($message), ['айфон', 'aйфон', 'aйфoн', 'айфoн'])) {
         $vk->sendMessage($peer_id, 'айфон говно');
+        return;
     }
     if($util->strContains(mb_strtolower($message), ['андроид', 'aндроид', 'aндрoид', 'aндрoид'])) {
         $vk->sendMessage($peer_id, 'андроид топ');
+        return;
     }
     if(preg_match('/(бот_новости_)[а-яё]{2,}/', mb_strtolower($message))) {
         $news_word = explode('_', mb_strtolower($message))[2];
@@ -64,6 +69,7 @@ if ($data->type == 'message_new') {
         ]), true);
         $newsString = $util->transformNews($news);
         $vk->sendMessage($peer_id, $newsString);
+        return;
     }
     if(preg_match('/(бот_погода_)[а-яё]{2,}/', mb_strtolower($message))) {
         $city_name = explode('_', mb_strtolower($message))[2];
@@ -83,6 +89,11 @@ if ($data->type == 'message_new') {
         ]), true);
         $weather = $util->transformWeather($daily_temp);
         $vk->sendMessage($peer_id, $weather);
+        return;
+    }
+    if(random_int(1,200) === 33) {
+        $vk->sendMessage($peer_id, 'хуе' . mb_strtolower($message));
+        return;
     }
 }
 
