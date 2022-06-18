@@ -92,7 +92,8 @@ if ($data->type == 'message_new') {
         return;
     }
     if(random_int(1,200) === 33) {
-        $vk->sendMessage($peer_id, 'хуе' . mb_strtolower($message));
+        $message = $util->transfromWordsHuebot($message);
+        $vk->sendMessage($peer_id, $message);
         return;
     }
 }

@@ -65,4 +65,14 @@ class Utility
         }
         return false;
     }
+
+    public function transfromWordsHuebot(string $message): string
+    {
+        $arr = explode(" ", $message);
+        foreach ($arr as $index => $word) {
+            $arr[$index] = "хуе" . mb_strtolower($word);
+        }
+
+        return implode(" ", $arr);
+    }
 }
