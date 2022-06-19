@@ -106,8 +106,9 @@ if ($data->type == 'message_new') {
     if(preg_match('/(бот_посчитай_){1,20}/u', mb_strtolower($message))) {
         $expression = explode('_', mb_strtolower($message))[2];
         $responseHtml = $util->curlGetRequest('https://api.mathjs.org/v4/?expr=' . $expression);
-        preg_match('/<body>([0-9]+\.[0-9]+)/u',$responseHtml,$result);
-        $vk->sendMessage($peer_id, 'Ответ -> ' . $result[1]);
+        $vk->sendMessage($peer_id, 'Ответ -> ' . $responseHtml);
+        //preg_match('/<body>([0-9]+\.[0-9]+)/u',$responseHtml,$result);
+        //$vk->sendMessage($peer_id, 'Ответ -> ' . $result[1]);
         return;
     }
     if(random_int(1,150) === 33) {
