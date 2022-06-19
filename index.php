@@ -96,6 +96,12 @@ if ($data->type == 'message_new') {
         $vk->sendMessage($peer_id, 'https://www.google.ru/search?q=' . mb_strtolower($search_word));
         return;
     }
+    if(preg_match('/(бот_википедия_)[а-яё]{2,}/', mb_strtolower($message))) {
+        $wiki_search_word = explode('_', mb_strtolower($message))[2];
+        $lang = explode('_', mb_strtolower($message))[3] ?? 'ru';
+        $vk->sendMessage($peer_id, 'https://'. $lang .'.wikipedia.org/wiki/' . mb_strtolower($wiki_search_word));
+        return;
+    }
     if(random_int(1,150) === 33) {
         $message = $util->transfromWordsHuebot($message);
         $vk->sendMessage($peer_id, $message);
