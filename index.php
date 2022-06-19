@@ -93,7 +93,7 @@ if ($data->type == 'message_new') {
     }
     if(preg_match('/(бот_поиск_)[а-яё]{2,}/', mb_strtolower($message))) {
         $search_word = explode('_', mb_strtolower($message))[2];
-        $vk->sendMessage($peer_id, 'https://g.zeos.in/?q=' . mb_strtolower($search_word));
+        $vk->sendMessage($peer_id, 'https://www.google.ru/search?q=' . mb_strtolower($search_word));
         return;
     }
     if(random_int(1,150) === 33) {
