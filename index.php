@@ -91,16 +91,17 @@ if ($data->type == 'message_new') {
         $vk->sendMessage($peer_id, $weather);
         return;
     }
-    if(preg_match('/(бот_поиск_)[а-яёa-z+]{2,}/', mb_strtolower($message))) {
-        $search_word = explode('_', mb_strtolower($message))[2];
-        $vk->sendMessage($peer_id, 'https://www.google.ru/search?q=' . mb_strtolower($search_word));
-        return;
-    }
     if(preg_match('/(бот_вики_)[а-яёa-z]{2,}/', mb_strtolower($message))) {
         $wiki_search_word = explode('_', mb_strtolower($message))[2];
         $wiki_search_word = str_replace("+", '_', $wiki_search_word);
         $lang = explode('_', mb_strtolower($message))[3] ?? 'ru';
         $vk->sendMessage($peer_id, 'https://'. $lang .'.wikipedia.org/wiki/' . mb_strtolower($wiki_search_word));
+        return;
+    }
+    if(preg_match('/(бот_поиск_)[а-яёa-z]{2,}/', mb_strtolower($message))) {
+        $wiki_search_word = explode('_', mb_strtolower($message))[2];
+        $wiki_search_word = str_replace("+", '+', $wiki_search_word);
+        $vk->sendMessage($peer_id, 'https://www.google.ru/search?q=' . mb_strtolower($wiki_search_word));
         return;
     }
     if(random_int(1,150) === 33) {
