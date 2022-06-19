@@ -105,6 +105,18 @@ if ($data->type == 'message_new') {
     }
     if(preg_match('/(бот_посчитай_){1,20}/u', mb_strtolower($message))) {
         $expression = explode('_', mb_strtolower($message))[2];
+        if(str_contains($expression, '%')) {
+            $expression = str_replace("%", '%25', $expression);
+        }
+        if(str_contains($expression, '+')){
+            $expression = str_replace("+", '%2B', $expression);
+        }
+        if(str_contains($expression, '^')){
+            $expression = str_replace("^", '%5E', $expression);
+        }
+        if(str_contains($expression, '/')){
+            $expression = str_replace("/", '%2F', $expression);
+        }
         $responseHtml = $util->curlGetRequest('https://api.mathjs.org/v4/?expr=' . $expression);
         $vk->sendMessage($peer_id, 'Ответ -> ' . $responseHtml);
         return;
