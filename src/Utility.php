@@ -70,7 +70,9 @@ class Utility
     {
         $arr = explode(" ", $message);
         foreach ($arr as $index => $word) {
-            $arr[$index] = "хуе" . mb_strtolower($word);
+            if(mb_strlen($word) > 2){
+                $arr[$index] = "хуе" . mb_strtolower($word);
+            }
         }
 
         return implode(" ", $arr);

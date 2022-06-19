@@ -91,7 +91,7 @@ if ($data->type == 'message_new') {
         $vk->sendMessage($peer_id, $weather);
         return;
     }
-    if(random_int(1,200) === 33) {
+    if(random_int(1,150) === 33) {
         $message = $util->transfromWordsHuebot($message);
         $vk->sendMessage($peer_id, $message);
         return;
