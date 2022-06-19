@@ -56,7 +56,7 @@ if ($data->type == 'message_new') {
         $vk->sendMessage($peer_id, 'андроид топ');
         return;
     }
-    if(preg_match('/(бот_новости_)[а-яё]{2,}/', mb_strtolower($message))) {
+    if(preg_match('/(бот_новости_)[а-яё]{2,}/u', mb_strtolower($message))) {
         $news_word = explode('_', mb_strtolower($message))[2];
         $news_lang = explode('_', mb_strtolower($message))[3] ?? 'ru';
         $news = json_decode($util->curlGetRequest('https://mediametrics.ru/satellites/api/search/?',
@@ -71,7 +71,7 @@ if ($data->type == 'message_new') {
         $vk->sendMessage($peer_id, $newsString);
         return;
     }
-    if(preg_match('/(бот_погода_)[а-яё]{2,}/', mb_strtolower($message))) {
+    if(preg_match('/(бот_погода_)[а-яё]{2,}/u', mb_strtolower($message))) {
         $city_name = explode('_', mb_strtolower($message))[2];
         $city_coordinates = json_decode($util->curlGetRequest('http://api.openweathermap.org/geo/1.0/direct?',
         [
@@ -91,7 +91,7 @@ if ($data->type == 'message_new') {
         $vk->sendMessage($peer_id, $weather);
         return;
     }
-    if(preg_match('/(бот_вики_)[а-яёa-z]{2,}/', mb_strtolower($message))) {
+    if(preg_match('/(бот_вики_)[а-яёa-z]{2,}/u', mb_strtolower($message))) {
         $wiki_search_word = explode('_', mb_strtolower($message))[2];
         $wiki_search_word = str_replace("+", '_', $wiki_search_word);
         $lang = explode('_', mb_strtolower($message))[3] ?? 'ru';
