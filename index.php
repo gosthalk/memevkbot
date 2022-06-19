@@ -98,7 +98,7 @@ if ($data->type == 'message_new') {
         $vk->sendMessage($peer_id, 'https://'. $lang .'.wikipedia.org/wiki/' . mb_strtolower($wiki_search_word));
         return;
     }
-    if(preg_match('/(бот_гугл_)[а-яёa-z]{2,}/', mb_strtolower($message))) {
+    if(preg_match('/(бот_гугл_)[а-яёa-z]{2,}$/u/', mb_strtolower($message))) {
         $wiki_search_word = explode('_', mb_strtolower($message))[2];
         $vk->sendMessage($peer_id, 'https://www.google.ru/search?q=' . mb_strtolower($wiki_search_word));
         return;
