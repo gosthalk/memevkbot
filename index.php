@@ -101,7 +101,7 @@ if ($data->type == 'message_new') {
     }
     if(preg_match('/(бот_гугл_)[а-яёa-z]{2,}/u', mb_strtolower($message))) {
         $google_search_word = explode('_', mb_strtolower($message))[2];
-        $google_search_word = str_replace(" ", '_', $google_search_word);
+        $google_search_word = str_replace(" ", '+', $google_search_word);
         $vk->sendMessage($peer_id, 'https://www.google.ru/search?q=' . mb_strtolower($google_search_word));
         return;
     }
