@@ -127,7 +127,7 @@ if ($data->type == 'message_new') {
         $vk->sendMessage($peer_id, 'Ответ -> ' . $responseHtml);
         return;
     }
-    if(random_int(1,150) === 33) {
+    if(random_int(1,100) === 33) {
         $message = $util->transfromWordsHuebot($message);
         $vk->sendMessage($peer_id, $message);
         return;
