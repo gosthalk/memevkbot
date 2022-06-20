@@ -91,6 +91,10 @@ if ($data->type == 'message_new') {
         $vk->sendMessage($peer_id, $weather);
         return;
     }
+    if(mb_strtolower($message) === 'бот_вики_случайная') {
+        $vk->sendMessage($peer_id, 'https://ru.wikipedia.org/wiki/%D0%A1%D0%BB%D1%83%D0%B6%D0%B5%D0%B1%D0%BD%D0%B0%D1%8F:%D0%A1%D0%BB%D1%83%D1%87%D0%B0%D0%B9%D0%BD%D0%B0%D1%8F_%D1%81%D1%82%D1%80%D0%B0%D0%BD%D0%B8%D1%86%D0%B0');
+        return;
+    }
     if(preg_match('/(бот_вики_)[а-яёa-z]{2,}/u', mb_strtolower($message))) {
         $wiki_search_word = explode('_', mb_strtolower($message))[2];
         $wiki_search_word = str_replace("+", '_', $wiki_search_word);
