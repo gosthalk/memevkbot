@@ -125,7 +125,7 @@ if ($data->type == 'message_new') {
 
 
         $upload_link = json_decode($util->getAudioMessageUploadLink(), true);
-        error_log($upload_link);
+        error_log($upload_link['response']['upload_url']);
 
             $file_link = json_decode(json_encode($util->curlPostRequest($upload_link['response']['upload_url'], ['file' => realpath('tmp_file.opus')])), true);
             error_log($file_link['file']);
