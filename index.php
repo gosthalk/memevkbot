@@ -119,7 +119,7 @@ if ($data->type == 'message_new') {
     if(preg_match('/(бот_скажи_)[а-яёa-z]{2,}/u', mb_strtolower($message))) {
         $speech = explode('_', mb_strtolower($message))[2];
 
-        $file_created = $tts->createOpusFileFromText($speech);
+        //$file_created = $tts->createOpusFileFromText($speech);
         //sleep('20');
         //if($file_created) {
 
