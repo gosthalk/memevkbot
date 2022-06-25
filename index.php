@@ -125,7 +125,7 @@ if ($data->type == 'message_new') {
             $saved_audio_file = json_decode($vk->saveAudioMessage($file_link), true);
             var_dump($saved_audio_file);
 
-            $vk->sendMessage($peer_id, 'Держи', 'wall' . $saved_audio_file['owner_id'] . '_' . $saved_audio_file['id']);
+            $vk->sendMessageWithAudio($peer_id, 'doc' . $saved_audio_file['owner_id'] . '_' . $saved_audio_file['id']);
             $tts->deleteTmpFiles();
         }
 

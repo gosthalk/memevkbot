@@ -30,6 +30,11 @@ class VkApiGateway
         $this->Request("messages.send", $this->group_token, ["peer_id" => $peer_id, "sticker_id" => $stickerId, "random_id" => $this->random_id]);
     }
 
+    public function SendMessageWithAudio($peer_id, $attachment)
+    {
+        $this->Request("messages.send", $this->group_token, ["peer_id" => $peer_id, "attachment" => $attachment]);
+    }
+
     public function getGroupWallPosts($owner_id, $count)
     {
         return $this->Request("wall.get", $this->user_token, ["owner_id" => $owner_id, "count" => $count]);
