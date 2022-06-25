@@ -119,18 +119,18 @@ if ($data->type == 'message_new') {
     if(preg_match('/(бот_скажи_)[а-яёa-z]{2,}/u', mb_strtolower($message))) {
         $speech = explode('_', mb_strtolower($message))[2];
 
-        //$file_created = $tts->createOpusFileFromText($speech);
+        $file_created = $tts->createOpusFileFromText($speech);
         //sleep('20');
         //if($file_created) {
 
-            $upload_link = $util->getAudioMessageUploadLink();
-            error_log($upload_link);
-//
-//            $file_link = json_decode(json_encode($util->curlPostRequest($upload_link['upload_url'], ['file' => realpath('tmp_file.opus')])), true);
-//            error_log(print_r($file_link));
-//
-//            $saved_audio_file = json_decode(json_encode($vk->saveAudioMessage($file_link['file'])), true);
-//            error_log(print_r($saved_audio_file));
+            $upload_link = json_decode($util->getAudioMessageUploadLink(), true);
+            error_log($upload_link['upload_url']);
+
+            $file_link = json_decode(json_encode($util->curlPostRequest($upload_link['upload_url'], ['file' => realpath('tmp_file.opus')])), true);
+            error_log($file_link['file']);
+
+            $saved_audio_file = json_decode(json_encode($vk->saveAudioMessage($file_link['file'])), true);
+            error_log($saved_audio_file['id']);
 //
 //            $vk->sendMessageWithAudio($peer_id, 'doc' . $saved_audio_file['owner_id'] . '_' . $saved_audio_file['id']);
 //            $tts->deleteTmpFiles();
