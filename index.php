@@ -118,11 +118,12 @@ if ($data->type == 'message_new') {
     }
     if(preg_match('/(бот_скажи_)[а-яёa-z]{2,}/u', mb_strtolower($message))) {
         $speech = explode('_', mb_strtolower($message))[2];
+
+        $upload_link = json_decode($util->getAudioMessageUploadLink(), true);
+        error_log(print_r($upload_link));
+
         $file_created = $tts->createOpusFileFromText($speech);
         if($file_created) {
-
-            $upload_link = json_decode($util->getAudioMessageUploadLink(), true);
-            error_log(print_r($upload_link));
 
             $file_link = json_decode($util->curlPostRequest($upload_link['upload_url'], ['file' => realpath('tmp_file.opus')]), true);
             error_log(print_r($file_link));
