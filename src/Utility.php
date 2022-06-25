@@ -30,7 +30,7 @@ class Utility
         $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         curl_close($ch);
 
-        error_log($httpCode);
+        error_log((string)$httpCode);
         error_log(print_r((string)$error));
 
         return $response;
