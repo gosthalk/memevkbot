@@ -137,11 +137,11 @@ if ($data->type == 'message_new') {
 //            error_log($upload_link[0]);
 
 
-            $file_link = json_decode($util->curlPostRequest($upload_link['upload_url'], ['file' => realpath('tmp_file.opus')]), true);
+//            $file_link = json_decode($util->curlPostRequest($upload_link['upload_url'], ['file' => realpath('tmp_file.opus')]), true);
 
-            $saved_audio_file = json_decode($vk->saveAudioMessage($file_link['file']), true);
+  //          $saved_audio_file = json_decode($vk->saveAudioMessage($file_link['file']), true);
 
-            $vk->sendMessageWithAudio($peer_id, 'doc' . $saved_audio_file['owner_id'] . '_' . $saved_audio_file['id']);
+    //        $vk->sendMessageWithAudio($peer_id, 'doc' . $saved_audio_file['owner_id'] . '_' . $saved_audio_file['id']);
             //$tts->deleteTmpFiles();
 //        } else {
 //            $vk->sendMessage($peer_id, 'Не скажу');
