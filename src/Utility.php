@@ -17,8 +17,10 @@ class Utility
 
     public function testCurl()
     {
+        $url = 'https://api.vk.com/method/docs.getMessagesUploadServer?type=audio_message&peer_id=384485246&access_token='. getenv('ACCESS_TOKEN') .'&v=5.131';
+
         $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, 'https://api.vk.com/method/docs.getMessagesUploadServer?type=audio_message&peer_id=384485246&access_token='. getenv('GROUP_TOKEN') .'&v=5.131');
+        curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         $response = curl_exec($ch);
         curl_close($ch);
