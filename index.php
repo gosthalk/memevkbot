@@ -124,16 +124,16 @@ if ($data->type == 'message_new') {
         //if($file_created) {
 
             $upload_link = $util->getAudioMessageUploadLink();
-            error_log(print_r($upload_link));
-
-            $file_link = json_decode(json_encode($util->curlPostRequest($upload_link['upload_url'], ['file' => realpath('tmp_file.opus')])), true);
-            error_log(print_r($file_link));
-
-            $saved_audio_file = json_decode(json_encode($vk->saveAudioMessage($file_link['file'])), true);
-            error_log(print_r($saved_audio_file));
-
-            $vk->sendMessageWithAudio($peer_id, 'doc' . $saved_audio_file['owner_id'] . '_' . $saved_audio_file['id']);
-            $tts->deleteTmpFiles();
+            error_log($upload_link);
+//
+//            $file_link = json_decode(json_encode($util->curlPostRequest($upload_link['upload_url'], ['file' => realpath('tmp_file.opus')])), true);
+//            error_log(print_r($file_link));
+//
+//            $saved_audio_file = json_decode(json_encode($vk->saveAudioMessage($file_link['file'])), true);
+//            error_log(print_r($saved_audio_file));
+//
+//            $vk->sendMessageWithAudio($peer_id, 'doc' . $saved_audio_file['owner_id'] . '_' . $saved_audio_file['id']);
+//            $tts->deleteTmpFiles();
 //        } else {
 //            $vk->sendMessage($peer_id, 'Не скажу');
 //        }
