@@ -20,11 +20,11 @@ class Utility
         $link = $url . http_build_query($params);
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $link);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch, CURLOPT_HTTPHEADER, ['Cache-Control: no-cache']);
         curl_setopt($ch, CURLOPT_FRESH_CONNECT, 1);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
         $response = curl_exec($ch);
         $error = curl_error($ch);
         $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
@@ -32,6 +32,7 @@ class Utility
 
         error_log((string)$httpCode);
         error_log($error ? '1' : '0');
+        error_log(gettype($response));
         error_log($response ? '1' : '0');
 
         return $response;
