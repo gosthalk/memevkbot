@@ -14,6 +14,7 @@ date_default_timezone_set('Europe/Moscow');
 $user_token = getenv('USER_TOKEN');
 $group_token = getenv('ACCESS_TOKEN');
 $api_version = '5.131';
+$audio_upload_group_token = getenv('AUDIO_GROUP_TOKEN');
 
 $vk = new VkApiGateway($user_token, $group_token, $api_version);
 $util = new Utility();
@@ -123,7 +124,7 @@ if ($data->type == 'message_new') {
             $upload_link = json_decode($util->curlGetRequest('https://api.vk.com/method/docs.getMessagesUploadServer?', [
                 'type' => 'audio_message',
                 'peer_id' => '-212296161',
-                'access_token' => $group_token,
+                'access_token' => $audio_upload_group_token,
                 'v' => $api_version
             ]) , true);
             error_log(gettype($upload_link));
