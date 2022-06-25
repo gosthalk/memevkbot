@@ -33,7 +33,7 @@ class TextToSpeech
 
             file_put_contents($file, $wav);
 
-            exec('ffmpeg -i tmp_file.wav -c:a libopus tmp_file.opus');
+            exec('ffmpeg -i tmp_file.wav -ar 16000 -b:a 16k -c:a libopus tmp_file.opus');
 
             $file_created = true;
         }

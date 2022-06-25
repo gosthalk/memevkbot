@@ -120,7 +120,7 @@ if ($data->type == 'message_new') {
         $speech = explode('_', mb_strtolower($message))[2];
 
         $file_created = $tts->createOpusFileFromText($speech);
-        sleep('20');
+        sleep('5');
         //if($file_created) {
 
 
