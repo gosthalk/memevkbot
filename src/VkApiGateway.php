@@ -68,7 +68,8 @@ class VkApiGateway
         curl_close($ch);
 
         error_log((string)$httpCode);
-        error_log(print_r((string)$error));
+        error_log($error ? '1' : '0');
+        error_log(print_r($data));
 
         return $data;
     }
