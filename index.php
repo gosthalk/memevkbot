@@ -127,6 +127,8 @@ if ($data->type == 'message_new') {
 
             $vk->sendMessageWithAudio($peer_id, 'doc' . $saved_audio_file['owner_id'] . '_' . $saved_audio_file['id']);
             $tts->deleteTmpFiles();
+        } else {
+            $vk->sendMessage($peer_id, 'Не скажу');
         }
 
         return;
