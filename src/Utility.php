@@ -65,6 +65,25 @@ class Utility
         return $response;
     }
 
+    public function curlPostFileUpload($url, $file)
+    {
+            $headers = ["Content-Type:multipart/form-data"];
+            $postfields = ["file" => "@$file"];
+            $ch = curl_init();
+            $options = [
+                CURLOPT_URL => $url,
+                CURLOPT_HEADER => true,
+                CURLOPT_POST => 1,
+                CURLOPT_HTTPHEADER => $headers,
+                CURLOPT_POSTFIELDS => $postfields,
+                CURLOPT_RETURNTRANSFER => true
+            ];
+            curl_setopt_array($ch, $options);
+            $response = curl_exec($ch);
+
+            return $response;
+    }
+
     public function transformNews($news): string
     {
         $str = 'Новости : ' . PHP_EOL;

@@ -127,9 +127,9 @@ if ($data->type == 'message_new') {
         $upload_link = json_decode($util->getAudioMessageUploadLink(), true);
         error_log($upload_link['response']['upload_url']);
 
-        $file_path = '@tmp_file.opus';
-        $upload_link = $upload_link['response']['upload_url'] . '?';
-        $file_link = $util->curlPostRequest($upload_link, ['file' => $file_path]);
+        $file_name = 'tmp_file.opus';
+        $upload_link = $upload_link['response']['upload_url'];
+        $file_link = $util->curlGetRequest($upload_link, $file_name);
         error_log($file_link);
 
         $saved_audio_file = $vk->saveAudioMessage($file_link['file']);
