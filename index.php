@@ -121,28 +121,17 @@ if ($data->type == 'message_new') {
         //$file_created = $tts->createOpusFileFromText($speech);
         //if($file_created) {
 
-            $link = $util->testCurl();
-            error_log($link);
+            $upload_link = json_decode($util->getAudioMessageUploadLink(), true);
+            error_log($upload_link);
 
-//            $upload_link = $vk->getUploadLinkForAudioMessage('-212296161');
-//            error_log(gettype($upload_link));
-//            error_log(print_r($upload_link));
-//
-//            $upload_link = json_decode($util->curlGetRequest('https://api.vk.com/method/docs.getMessagesUploadServer?', [
-//                'type' => 'audio_message',
-//                'peer_id' => '-212296161',
-//                'access_token' => $audio_upload_group_token,
-//                'v' => $api_version
-//            ]), true);
-//            error_log($upload_link[0]);
+            $file_link = json_decode($util->curlPostRequest($upload_link['upload_url'], ['file' => realpath('tmp_file.opus')]), true);
+            error_log(print_r($file_link));
 
+            $saved_audio_file = json_decode($vk->saveAudioMessage($file_link['file']), true);
+            error_log(print_r($saved_audio_file));
 
-//            $file_link = json_decode($util->curlPostRequest($upload_link['upload_url'], ['file' => realpath('tmp_file.opus')]), true);
-
-  //          $saved_audio_file = json_decode($vk->saveAudioMessage($file_link['file']), true);
-
-    //        $vk->sendMessageWithAudio($peer_id, 'doc' . $saved_audio_file['owner_id'] . '_' . $saved_audio_file['id']);
-            //$tts->deleteTmpFiles();
+            $vk->sendMessageWithAudio($peer_id, 'doc' . $saved_audio_file['owner_id'] . '_' . $saved_audio_file['id']);
+            $tts->deleteTmpFiles();
 //        } else {
 //            $vk->sendMessage($peer_id, 'Не скажу');
 //        }

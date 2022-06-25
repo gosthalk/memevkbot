@@ -15,7 +15,7 @@ class Utility
         return $ids;
     }
 
-    public function testCurl()
+    public function getAudioMessageUploadLink()
     {
         $url = 'https://api.vk.com/method/docs.getMessagesUploadServer?type=audio_message&peer_id=384485246&access_token='. getenv('ACCESS_TOKEN') .'&v=5.131';
 
