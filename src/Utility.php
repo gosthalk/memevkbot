@@ -32,7 +32,7 @@ class Utility
 
         error_log((string)$httpCode);
         error_log($error ? '1' : '0');
-        error_log(print_r($response));
+        error_log($response ? '1' : '0');
 
         return $response;
     }
