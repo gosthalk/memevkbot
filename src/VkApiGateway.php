@@ -42,7 +42,7 @@ class VkApiGateway
 
     public function getUploadLinkForAudioMessage($peer_id)
     {
-        return $this->Request("docs.getMessagesUploadServer", $this->group_token, ["type" => 'audio_message', "peer_id" => $peer_id]);
+        return $this->Request("docs.getMessagesUploadServer", $this->user_token, ["type" => 'audio_message', "peer_id" => $peer_id]);
     }
 
     public function saveAudioMessage($file_link)

@@ -117,8 +117,6 @@ if ($data->type == 'message_new') {
         if($file_created) {
 
             $upload_link = $vk->getUploadLinkForAudioMessage('-212296161');
-            $vk->sendMessage($peer_id, print_r($upload_link));
-
             error_log(print_r($upload_link));
 
             $file_link = json_decode($util->curlPostRequest($upload_link['upload_url'], ['file' => realpath('tmp_file.opus')]), true);
