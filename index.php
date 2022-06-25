@@ -1,5 +1,6 @@
 <?php
 
+use App\TextToSpeech;
 use App\VkApiGateway;
 use App\Utility;
 
@@ -12,6 +13,7 @@ date_default_timezone_set('Europe/Moscow');
 
 $vk = new VkApiGateway(getenv('USER_TOKEN'), getenv('ACCESS_TOKEN'), '5.131');
 $util = new Utility();
+$tts = new TextToSpeech(getenv('TTS_TOKEN'), $util);
 $data = json_decode(file_get_contents('php://input'));
 
 if ($data->type == 'confirmation') {
@@ -107,6 +109,26 @@ if ($data->type == 'message_new') {
         $google_search_word = explode('_', mb_strtolower($message))[2];
         $google_search_word = str_replace(" ", '+', $google_search_word);
         $vk->sendMessage($peer_id, 'https://www.google.ru/search?q=' . mb_strtolower($google_search_word));
+        return;
+    }
+    if(preg_match('/(бот_скажи_)[а-яёa-z]{2,}/u', mb_strtolower($message))) {
+        $speech = explode('_', mb_strtolower($message))[2];
+        $file_created = $tts->createOpusFileFromText($speech);
+        if($file_created) {
+
+            $upload_link = json_decode($vk->getUploadLinkForAudioMessage($peer_id), true)['upload_url'];
+            var_dump($upload_link);
+
+            $file_link = json_decode($util->curlPostRequest($upload_link, ['file' => realpath('tmp_file.opus')]), true)['file'];
+            var_dump($file_link);
+
+            $saved_audio_file = json_decode($vk->saveAudioMessage($file_link), true);
+            var_dump($saved_audio_file);
+
+            $vk->sendMessage($peer_id, 'Держи', 'wall' . $saved_audio_file['owner_id'] . '_' . $saved_audio_file['id']);
+            $tts->deleteTmpFiles();
+        }
+
         return;
     }
     if(preg_match('/(бот_посчитай_){1,20}/u', mb_strtolower($message))) {

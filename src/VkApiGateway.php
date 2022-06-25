@@ -35,6 +35,16 @@ class VkApiGateway
         return $this->Request("wall.get", $this->user_token, ["owner_id" => $owner_id, "count" => $count]);
     }
 
+    public function getUploadLinkForAudioMessage($peer_id)
+    {
+        return $this->Request("docs.getMessagesUploadServer", $this->group_token, ["type" => 'audio_message', "peer_id" => $peer_id]);
+    }
+
+    public function saveAudioMessage($file_link)
+    {
+        return $this->Request("docs.save", $this->group_token, ["file" => $file_link]);
+    }
+
     private function Request($method, $token, $params=[])
     {
         $url = $this->endpoint."/$method?";
