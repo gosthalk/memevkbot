@@ -119,10 +119,10 @@ if ($data->type == 'message_new') {
             $upload_link = json_decode($vk->getUploadLinkForAudioMessage($peer_id), true)['upload_url'];
             var_dump($upload_link);
 
-            $file_link = json_decode($util->curlPostRequest($upload_link, ['file' => realpath('tmp_file.opus')]), true)['file'];
+            $file_link = json_decode($util->curlPostRequest($upload_link['upload_url'], ['file' => realpath('tmp_file.opus')]), true);
             var_dump($file_link);
 
-            $saved_audio_file = json_decode($vk->saveAudioMessage($file_link), true);
+            $saved_audio_file = json_decode($vk->saveAudioMessage($file_link['file']), true);
             var_dump($saved_audio_file);
 
             $vk->sendMessageWithAudio($peer_id, 'doc' . $saved_audio_file['owner_id'] . '_' . $saved_audio_file['id']);
