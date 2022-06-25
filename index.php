@@ -116,7 +116,7 @@ if ($data->type == 'message_new') {
         $file_created = $tts->createOpusFileFromText($speech);
         if($file_created) {
 
-            $upload_link = json_decode($vk->getUploadLinkForAudioMessage($peer_id), true)['upload_url'];
+            $upload_link = json_decode($vk->getUploadLinkForAudioMessage($peer_id), true);
             var_dump($upload_link);
 
             $file_link = json_decode($util->curlPostRequest($upload_link['upload_url'], ['file' => realpath('tmp_file.opus')]), true);
