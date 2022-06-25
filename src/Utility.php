@@ -56,10 +56,7 @@ class Utility
         $request = curl_init($url);
 
         curl_setopt($request, CURLOPT_POST, true);
-        curl_setopt(
-            $request,
-            CURLOPT_POSTFIELDS,http_build_query($params)
-        );
+        curl_setopt($request, CURLOPT_POSTFIELDS, $params);
         curl_setopt($request, CURLOPT_HTTPHEADER, array('Content-Type: multipart/form-data'));
         curl_setopt($request, CURLOPT_RETURNTRANSFER, true);
         $response =  curl_exec($request);
