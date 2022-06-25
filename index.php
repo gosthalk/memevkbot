@@ -129,7 +129,7 @@ if ($data->type == 'message_new') {
 
         $file_name = 'tmp_file.opus';
         $upload_link = $upload_link['response']['upload_url'];
-        $file_link = $util->curlGetRequest($upload_link, $file_name);
+        $file_link = $util->curlPostFileUpload($upload_link, $file_name);
         error_log($file_link);
 
         $saved_audio_file = $vk->saveAudioMessage($file_link['file']);
