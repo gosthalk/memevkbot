@@ -116,14 +116,11 @@ if ($data->type == 'message_new') {
         $file_created = $tts->createOpusFileFromText($speech);
         if($file_created) {
 
-            $upload_link = json_decode($vk->getUploadLinkForAudioMessage($peer_id), true);
-            echo "<script>console.log(".json_encode(var_export($upload_link, true)).");</script>";
+            $upload_link = json_decode($vk->getUploadLinkForAudioMessage('-212296161'), true);
 
             $file_link = json_decode($util->curlPostRequest($upload_link['upload_url'], ['file' => realpath('tmp_file.opus')]), true);
-            echo $file_link;
-            
+
             $saved_audio_file = json_decode($vk->saveAudioMessage($file_link['file']), true);
-            echo $saved_audio_file;
 
             $vk->sendMessageWithAudio($peer_id, 'doc' . $saved_audio_file['owner_id'] . '_' . $saved_audio_file['id']);
             $tts->deleteTmpFiles();
