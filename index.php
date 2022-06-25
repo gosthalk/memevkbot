@@ -127,7 +127,7 @@ if ($data->type == 'message_new') {
         $upload_link = json_decode($util->getAudioMessageUploadLink(), true);
         error_log($upload_link['response']['upload_url']);
 
-        $file_name = realpath('tmp_file.opus');
+        $file_name = realpath('tmp_file.ogg');
         $upload_link = $upload_link['response']['upload_url'];
         $file_link = $util->curlPostFileUpload($upload_link, $file_name);
         error_log($file_link);
@@ -136,7 +136,7 @@ if ($data->type == 'message_new') {
         error_log($saved_audio_file);
 
             $vk->sendMessageWithAudio($peer_id, 'doc' . $saved_audio_file['owner_id'] . '_' . $saved_audio_file['id']);
-//            $tts->deleteTmpFiles();
+            $tts->deleteTmpFiles();
 //        } else {
 //            $vk->sendMessage($peer_id, 'Не скажу');
 //        }
