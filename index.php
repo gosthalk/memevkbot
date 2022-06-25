@@ -121,12 +121,7 @@ if ($data->type == 'message_new') {
         //$file_created = $tts->createOpusFileFromText($speech);
         //if($file_created) {
 
-            $upload_link = $util->curlGetRequest('https://api.vk.com/method/docs.getMessagesUploadServer?', [
-                'type' => 'audio_message',
-                'peer_id' => '-212296161',
-                'access_token' => $audio_upload_group_token,
-                'v' => $api_version
-            ]);
+            $upload_link = $vk->getUploadLinkForAudioMessage('-212296161');
             error_log(gettype($upload_link));
             error_log(print_r($upload_link));
 
@@ -136,7 +131,7 @@ if ($data->type == 'message_new') {
                 'access_token' => $audio_upload_group_token,
                 'v' => $api_version
             ]), true);
-            error_log($upload_link[1]);
+            error_log($upload_link[0]);
 
 
             $file_link = json_decode($util->curlPostRequest($upload_link['upload_url'], ['file' => realpath('tmp_file.opus')]), true);
