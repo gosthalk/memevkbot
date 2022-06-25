@@ -11,7 +11,11 @@ date_default_timezone_set('Europe/Moscow');
 //$conf = require('config/config.php');
 //$vk = new VkApiGateway($conf['user_token'], $conf['group_token'], $conf['weather_token'], '5.131');
 
-$vk = new VkApiGateway(getenv('USER_TOKEN'), getenv('ACCESS_TOKEN'), '5.131');
+$user_token = getenv('USER_TOKEN');
+$group_token = getenv('ACCESS_TOKEN');
+$api_version = '5.131';
+
+$vk = new VkApiGateway($user_token, $group_token, $api_version);
 $util = new Utility();
 $tts = new TextToSpeech(getenv('TTS_TOKEN'), $util);
 $data = json_decode(file_get_contents('php://input'));
@@ -116,7 +120,12 @@ if ($data->type == 'message_new') {
         //$file_created = $tts->createOpusFileFromText($speech);
         //if($file_created) {
 
-            $upload_link = $vk->getUploadLinkForAudioMessage('-212296161');
+            $upload_link = json_decode($util->curlGetRequest('https://api.vk.com/method/docs.getMessagesUploadServer?', [
+                'type' => 'audio_message',
+                'peer_id' => '-212296161',
+                'access_token' => $group_token,
+                'v' => $api_version
+            ]) , true);
             error_log(gettype($upload_link));
             error_log(print_r($upload_link));
 
