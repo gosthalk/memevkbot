@@ -123,8 +123,13 @@ if ($data->type == 'message_new') {
         //sleep('20');
         //if($file_created) {
 
-            $upload_link = json_decode($util->getAudioMessageUploadLink(), true);
-            error_log($upload_link['upload_url']);
+
+        $upload_link = $util->getAudioMessageUploadLink();
+        error_log($upload_link);
+
+
+        $upload_link = json_decode($util->getAudioMessageUploadLink(), true);
+        error_log($upload_link);
 
 //            $file_link = json_decode(json_encode($util->curlPostRequest($upload_link['upload_url'], ['file' => realpath('tmp_file.opus')])), true);
 //            error_log($file_link['file']);
