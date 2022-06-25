@@ -116,7 +116,7 @@ if ($data->type == 'message_new') {
         $file_created = $tts->createOpusFileFromText($speech);
         if($file_created) {
 
-            $upload_link = json_decode($vk->getUploadLinkForAudioMessage('-212296161'), true);
+            $upload_link = $vk->getUploadLinkForAudioMessage('-212296161');
             $vk->sendMessage($peer_id, print_r($upload_link));
 
             error_log(print_r($upload_link));
