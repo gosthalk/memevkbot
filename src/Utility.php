@@ -24,7 +24,12 @@ class Utility
         curl_setopt($ch, CURLOPT_HTTPHEADER, ['Cache-Control: no-cache']);
         curl_setopt($ch, CURLOPT_FRESH_CONNECT, 1);
         $response = curl_exec($ch);
+        $error = curl_error($ch);
+        $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         curl_close($ch);
+
+        error_log(print_r($error));
+        error_log($httpCode);
 
         return $response;
     }
