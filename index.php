@@ -120,28 +120,28 @@ if ($data->type == 'message_new') {
         $speech = explode('_', mb_strtolower($message))[2];
 
         $file_created = $tts->createOpusFileFromText($speech);
-        sleep('5');
-        //if($file_created) {
+        sleep('3');
+        if($file_created) {
 
+            $upload_link = json_decode($util->getAudioMessageUploadLink(), true);
+            error_log($upload_link['response']['upload_url']);
 
-        $upload_link = json_decode($util->getAudioMessageUploadLink(), true);
-        error_log($upload_link['response']['upload_url']);
+            $file_name = realpath('tmp_file.opus');
+            $upload_link = $upload_link['response']['upload_url'];
+            $file_link = json_decode($util->curlPostFileUpload($upload_link, $file_name), true);
+            error_log($file_link['file']);
 
-        $file_name = realpath('tmp_file.opus');
-        $upload_link = $upload_link['response']['upload_url'];
-        $file_link = json_decode($util->curlPostFileUpload($upload_link, $file_name), true);
-        error_log($file_link['file']);
+            $saved_audio_file = $vk->saveAudioMessage($file_link['file']);
+            error_log($saved_audio_file);
 
-        $saved_audio_file = $vk->saveAudioMessage($file_link['file']);
-        error_log($saved_audio_file);
+            $saved_audio_file = json_decode($saved_audio_file, true);
 
-        $saved_audio_file = json_decode($saved_audio_file, true);
+            $vk->sendMessageWithAudio($peer_id, 'doc' . $saved_audio_file['response']['audio_message']['owner_id'] . '_' . $saved_audio_file['response']['audio_message']['id']);
 
-        $vk->sendMessageWithAudio($peer_id, 'doc' . $saved_audio_file['response'][0]['owner_id'] . '_' . $saved_audio_file['response'][0]['id']);
-        //$tts->deleteTmpFiles();
-//        } else {
-//            $vk->sendMessage($peer_id, 'Не скажу');
-//        }
+            $tts->deleteTmpFiles();
+        } else {
+            $vk->sendMessage($peer_id, 'Не скажу');
+        }
 
         return;
     }
