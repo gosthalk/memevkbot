@@ -130,6 +130,7 @@ if ($data->type == 'message_new') {
         $file_name = realpath('tmp_file.opus');
         $upload_link = $upload_link['response']['upload_url'];
         $file_link = $util->curlPostFileUpload($upload_link, $file_name);
+        error_log($file_link);
         error_log(print_r(json_decode($file_link, true)));
         error_log($file_link['file']);
 
