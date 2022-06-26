@@ -136,8 +136,11 @@ if ($data->type == 'message_new') {
 
             $saved_audio_file = json_decode($saved_audio_file, true);
 
-            $vk->sendMessageWithAudio($peer_id, 'doc' . $saved_audio_file['response']['audio_message']['owner_id'] . '_' . $saved_audio_file['response']['audio_message']['id']);
+            $attachment = 'doc' . $saved_audio_file['response']['audio_message']['owner_id'] . '_' . $saved_audio_file['response']['audio_message']['id'];
+            error_log($attachment);
+            $vk->sendMessageWithAudio($peer_id, $attachment);
 
+            sleep('3');
             $tts->deleteTmpFiles();
         } else {
             $vk->sendMessage($peer_id, 'Не скажу');
