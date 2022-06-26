@@ -29,13 +29,22 @@ class TextToSpeech
         if (!file_exists($file))
         {
 
-            $ogg = $this->util->curlGetRequest('http://api.voicerss.org/?', [
-                'key' => $this->api_key,
-                'c' => 'OGG',
-                'v' => 'Peter',
-                'hl' => $lg,
-                'src' => $text,
-            ]);
+            if($lg === 'ru-ru') {
+                $ogg = $this->util->curlGetRequest('http://api.voicerss.org/?', [
+                    'key' => $this->api_key,
+                    'c' => 'OGG',
+                    'v' => 'Peter',
+                    'hl' => $lg,
+                    'src' => $text,
+                ]);
+            } else {
+                $ogg = $this->util->curlGetRequest('http://api.voicerss.org/?', [
+                    'key' => $this->api_key,
+                    'c' => 'OGG',
+                    'hl' => $lg,
+                    'src' => $text,
+                ]);
+            }
 
             file_put_contents($file, $ogg);
 
