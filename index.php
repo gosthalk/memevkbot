@@ -118,10 +118,9 @@ if ($data->type == 'message_new') {
     }
     if(preg_match('/(бот_скажи_)[а-яёa-z]{2,}/u', mb_strtolower($message))) {
         $speech = explode('_', mb_strtolower($message))[2];
-        $speech = str_replace(" ", '%20', $speech);
+        //$speech = str_replace(" ", '%20', $speech);
 
         $file_created = $tts->createOggFileFromText($speech);
-        sleep('3');
         if($file_created) {
 
             $upload_link = json_decode($util->getAudioMessageUploadLink(), true);
@@ -142,7 +141,6 @@ if ($data->type == 'message_new') {
             error_log($attachment);
             $vk->sendMessage($peer_id, 'Говорю', $attachment);
 
-            sleep('3');
             $tts->deleteTmpFiles();
         } else {
             $vk->sendMessage($peer_id, 'Не скажу');
