@@ -122,9 +122,12 @@ if ($data->type == 'message_new') {
         return;
     }
     if(preg_match('/(бот_скажи_)[а-яёa-z]{1,}/u', mb_strtolower($message))) {
-        $speech = explode('_', mb_strtolower($message))[2];
+        $expr = explode('_', mb_strtolower($message));
 
-        $file_created = $tts->createOggFileFromText($speech);
+        $speech = $expr[2];
+        $speech_lang = $expr[3] ?? null;
+
+        $file_created = $tts->createOggFileFromText($speech, $speech_lang);
         if($file_created) {
 
             $upload_link = json_decode($util->getAudioMessageUploadLink(), true);

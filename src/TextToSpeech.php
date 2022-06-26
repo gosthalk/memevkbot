@@ -16,11 +16,15 @@ class TextToSpeech
         $this->util = $util;
     }
 
-    public function createOggFileFromText($text): bool
+    public function createOggFileFromText($text, $lang): bool
     {
         $file_created = false;
 
         $file = 'tmp_file.ogg';
+
+        $lang_keys = require_once('src/text_context_keys.php');
+
+        $lg = is_null($lang) ? ($lang_keys[$lang] ?? $lang_keys['ru']) : $lang_keys['ru'];
 
         if (!file_exists($file))
         {
@@ -29,7 +33,7 @@ class TextToSpeech
                 'key' => $this->api_key,
                 'c' => 'OGG',
                 'v' => 'Peter',
-                'hl' => 'ru-ru',
+                'hl' => $lg,
                 'src' => $text,
             ]);
 
