@@ -138,7 +138,7 @@ if ($data->type == 'message_new') {
 
             $attachment = 'doc' . $saved_audio_file['response']['audio_message']['owner_id'] . '_' . $saved_audio_file['response']['audio_message']['id'];
             error_log($attachment);
-            $vk->sendMessageWithAudio($peer_id, $attachment);
+            $vk->sendMessage($peer_id, 'Говорю', $attachment);
 
             sleep('3');
             $tts->deleteTmpFiles();
