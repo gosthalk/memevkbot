@@ -34,7 +34,7 @@ if ($data->type == 'message_new') {
 }
 
 if ($data->type == 'message_new') {
-    if(mb_strtolower($message) === 'бот_команды') {
+    if(mb_strtolower($message) === 'бот_комманды') {
         $commands = $util->botCommands();
         $vk->sendMessage($peer_id, $commands);
         return;
