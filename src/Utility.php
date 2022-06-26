@@ -68,18 +68,21 @@ class Utility
     public function curlPostFileUpload($url, $file)
     {
             $headers = ["Content-Type:multipart/form-data"];
-            $postfields = ["file" => "@$file"];
+            $post_fields = [
+                "file" => new \CurlFile($file, 'audio/opus', 'tmp_file.opus')
+            ];
             $ch = curl_init();
             $options = [
                 CURLOPT_URL => $url,
                 CURLOPT_HEADER => true,
                 CURLOPT_POST => 1,
                 CURLOPT_HTTPHEADER => $headers,
-                CURLOPT_POSTFIELDS => $postfields,
+                CURLOPT_POSTFIELDS => $post_fields,
                 CURLOPT_RETURNTRANSFER => true
             ];
             curl_setopt_array($ch, $options);
             $response = curl_exec($ch);
+            curl_close($ch);
 
             return $response;
     }
