@@ -74,7 +74,6 @@ class Utility
             $ch = curl_init();
             $options = [
                 CURLOPT_URL => $url,
-                CURLOPT_HEADER => true,
                 CURLOPT_POST => 1,
                 CURLOPT_HTTPHEADER => $headers,
                 CURLOPT_POSTFIELDS => $post_fields,
