@@ -116,7 +116,7 @@ if ($data->type == 'message_new') {
         $vk->sendMessage($peer_id, 'https://www.google.ru/search?q=' . mb_strtolower($google_search_word));
         return;
     }
-    if(preg_match('/(бот_скажи_)[а-яёa-z]{2,}/u', mb_strtolower($message))) {
+    if(preg_match('/(бот_скажи_)[а-яёa-z]{1,}/u', mb_strtolower($message))) {
         $speech = explode('_', mb_strtolower($message))[2];
         //$speech = str_replace(" ", '%20', $speech);
 
