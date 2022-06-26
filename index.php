@@ -126,6 +126,8 @@ if ($data->type == 'message_new') {
 
         $speech = $expr[2];
         $speech_lang = $expr[3] ?? null;
+        error_log('Speed lang:');
+        error_log($speech_lang);
 
         $file_created = $tts->createOggFileFromText($speech, $speech_lang);
         if($file_created) {

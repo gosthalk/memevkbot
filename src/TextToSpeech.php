@@ -25,6 +25,7 @@ class TextToSpeech
         $lang_keys = require_once('src/text_context_keys.php');
 
         $lg = is_null($lang) ? ($lang_keys[$lang] ?? $lang_keys['ru']) : $lang_keys['ru'];
+        error_log($lg);
 
         if (!file_exists($file))
         {
