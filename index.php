@@ -118,8 +118,9 @@ if ($data->type == 'message_new') {
     }
     if(preg_match('/(бот_скажи_)[а-яёa-z]{2,}/u', mb_strtolower($message))) {
         $speech = explode('_', mb_strtolower($message))[2];
+        $speech = str_replace(" ", '%20', $speech);
 
-        $file_created = $tts->createOpusFileFromText($speech);
+        $file_created = $tts->createOggFileFromText($speech);
         sleep('3');
         if($file_created) {
 
@@ -136,7 +137,8 @@ if ($data->type == 'message_new') {
 
             $saved_audio_file = json_decode($saved_audio_file, true);
 
-            $attachment = 'doc' . $saved_audio_file['response']['audio_message']['owner_id'] . '_' . $saved_audio_file['response']['audio_message']['id'];
+            $attachment = 'doc' . $saved_audio_file['response']['audio_message']['owner_id'] .
+                '_' . $saved_audio_file['response']['audio_message']['id'];
             error_log($attachment);
             $vk->sendMessage($peer_id, 'Говорю', $attachment);
 

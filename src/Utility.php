@@ -69,7 +69,7 @@ class Utility
     {
             $headers = ["Content-Type:multipart/form-data"];
             $post_fields = [
-                "file" => new \CurlFile($file, 'audio/opus', 'tmp_file.opus')
+                "file" => new \CurlFile($file, 'audio/ogg', 'tmp_file.ogg')
             ];
             $ch = curl_init();
             $options = [
