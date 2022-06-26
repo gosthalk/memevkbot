@@ -129,13 +129,13 @@ if ($data->type == 'message_new') {
 
         $file_name = realpath('tmp_file.opus');
         $upload_link = $upload_link['response']['upload_url'];
-        $file_link = $util->curlPostFileUpload($upload_link, $file_name);
-        error_log($file_link);
-        $file_link = json_decode($file_link, true);
+        $file_link = json_decode($util->curlPostFileUpload($upload_link, $file_name), true);
         error_log($file_link['file']);
 
         $saved_audio_file = $vk->saveAudioMessage($file_link['file']);
-        error_log(print_r($saved_audio_file));
+        error_log($saved_audio_file);
+
+        $saved_audio_file = json_decode($saved_audio_file, true);
 
         $vk->sendMessageWithAudio($peer_id, 'doc' . $saved_audio_file['response'][0]['owner_id'] . '_' . $saved_audio_file['response'][0]['id']);
         //$tts->deleteTmpFiles();
