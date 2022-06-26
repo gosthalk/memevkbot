@@ -35,8 +35,6 @@ class TextToSpeech
 
             file_put_contents($file, $ogg);
 
-            //exec('ffmpeg -i tmp_file.wav -ar 16000 -b:a 16k -c:a libopus tmp_file.opus');
-
             $file_created = true;
         }
 

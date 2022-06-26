@@ -51,20 +51,6 @@ class Utility
         return $response;
     }
 
-    public function curlPostRequest($url, $params = []): bool|string
-    {
-        $request = curl_init($url);
-
-        curl_setopt($request, CURLOPT_POST, true);
-        curl_setopt($request, CURLOPT_POSTFIELDS, $params);
-        curl_setopt($request, CURLOPT_HTTPHEADER, array('Content-Type: multipart/form-data'));
-        curl_setopt($request, CURLOPT_RETURNTRANSFER, true);
-        $response =  curl_exec($request);
-        curl_close($request);
-
-        return $response;
-    }
-
     public function curlPostFileUpload($url, $file)
     {
             $headers = ["Content-Type:multipart/form-data"];
@@ -133,5 +119,26 @@ class Utility
         }
 
         return implode(" ", $arr);
+    }
+
+    public function botCommands()
+    {
+        $str = 'Комманды бота: ' . PHP_EOL;
+        $str .= '-------------------------------------------------------------------------------------' . PHP_EOL;
+        $str .= '*стикер* -> отсылает стикер' . PHP_EOL;
+        $str .= '*мем* -> отсылает мем' . PHP_EOL;
+        $str .= '*спиздани* -> отсылает ругательство' . PHP_EOL;
+        $str .= '*айфон*,*андроид* -> реагирует на слова' . PHP_EOL;
+        $str .= '*бот_новости_{ключевое слово}* -> выдает новости' . PHP_EOL;
+        $str .= '*бот_погода_{город}* -> выдает погоду' . PHP_EOL;
+        $str .= '*бот_вики_{выражение}* -> выдает страницу вики' . PHP_EOL;
+        $str .= '*бот_вики_случайная* -> выдает случайную страницу вики' . PHP_EOL;
+        $str .= '*бот_гугл_{выражение}* -> выдает страницу гугла' . PHP_EOL;
+        $str .= '*бот_посчитай_{выражение}* -> считает пример' . PHP_EOL;
+        $str .= '*бот_скажи_{выражение}* -> отправляет голосовое' . PHP_EOL;
+        $str .= 'Есть 1% шанс на выпадение хуедописки к словам' . PHP_EOL;
+        $str .= '-------------------------------------------------------------------------------------' . PHP_EOL;
+
+        return $str;
     }
 }

@@ -34,6 +34,11 @@ if ($data->type == 'message_new') {
 }
 
 if ($data->type == 'message_new') {
+    if(mb_strtolower($message) === 'бот_команды') {
+        $commands = $util->botCommands();
+        $vk->sendMessage($peer_id, $commands);
+        return;
+    }
     if(mb_strtolower($message) === 'спиздани') {
         $response = json_decode($util->curlGetRequest('https://evilinsult.com/generate_insult.php?lang=ru&type=json'), true);
         $vk->sendMessage($peer_id, iconv(mb_detect_encoding($response['insult'], mb_detect_order(), true), "UTF-8", $response['insult']));
@@ -118,7 +123,6 @@ if ($data->type == 'message_new') {
     }
     if(preg_match('/(бот_скажи_)[а-яёa-z]{1,}/u', mb_strtolower($message))) {
         $speech = explode('_', mb_strtolower($message))[2];
-        //$speech = str_replace(" ", '%20', $speech);
 
         $file_created = $tts->createOggFileFromText($speech);
         if($file_created) {
