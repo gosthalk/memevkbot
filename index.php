@@ -132,7 +132,7 @@ if ($data->type == 'message_new') {
         $file_link = $util->curlPostFileUpload($upload_link, $file_name);
         error_log($file_link);
         error_log(print_r(json_decode($file_link, true)));
-        error_log($file_link['file']);
+        error_log($file_link['response']['file']);
 
         $saved_audio_file = $vk->saveAudioMessage($file_link['file']);
         error_log(print_r($saved_audio_file));
